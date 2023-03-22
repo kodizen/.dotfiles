@@ -103,6 +103,8 @@ alias count='find . -type f | wc -l'
 alias ve='python3 -m venv ./venv'
 alias va='source ./venv/bin/activate'
 
+alias python=python3
+
 
 function mkd() {
     mkdir -p "$@" && cd "$@"

@@ -22,12 +22,7 @@ then
   updates=$(brew outdated | wc -l)
   if [ "$updates" -gt 0 ]
   then
-
-echo "--------------------------------------------------------------------------------------------"
-
     echo "🍺 $updates brew updates are available. Run 'brew update && brew upgrade' to update."
-
-echo "--------------------------------------------------------------------------------------------"
   fi
 fi
 
@@ -37,11 +32,7 @@ then
   updates=$(softwareupdate -l | grep -c "recommended")
   if [ "$updates" -gt 0 ]
   then
-  echo "--------------------------------------------------------------------------------------------"
-
-    echo "🆕  $updates system updates are available."
-
-    echo "--------------------------------------------------------------------------------------------"
+    echo "🆕 $updates system updates are available."
   fi
 fi
 # Loop through the websites and check their status using curl
@@ -60,51 +51,17 @@ do
   fi
 done
 
-
-# Check any git repos for updates
-if [ -x "$(command -v git)" ]
-then
-  for repo in $(find . -name .git -type d -prune)
-  do
-    cd $repo/..
-    if [ -n "$(git status --porcelain)" ]
-    then
-
-
-      echo -e "\033[33m$(pwd)\033[0m has uncommitted changes."
-
-
-    fi
-  done
-fi
-
-# Check for any running docker containers
-if [ -x "$(command -v docker)" ]
-then
-  containers=$(docker ps -a | wc -l)
-  if [ "$containers" -gt 1 ]
-  then
-
-
-    echo "🐳  $containers docker containers are running."
-
-
-  fi
-fi
-
 #  Check for any changes in git remotes, require a git pull
-if [ -x "$(command -v git)" ]
-then
-  for repo in $(find . -name .git -type d -prune)
-  do
-    cd $repo/..
-    if [ -n "$(git remote show origin | grep 'local out of date')" ]
-    then
-      echo "--------------------------------------------------------------------------------------------"
+# if [ -x "$(command -v git)" ]
+# then
+#   for repo in $(find . -name .git -type d -prune)
+#   do
+#     cd $repo/..
+#     if [ -n "$(git remote show origin | grep 'local out of date')" ]
+#     then
+#       echo -e "\033[33m$(pwd)\033[0m has changes in the remote. Run \033[33mgit pull\033[0m to update."
+#     fi
+#   done
+# fi
 
-      echo -e "\033[33m$(pwd)\033[0m has changes in the remote."
-
-      echo "--------------------------------------------------------------------------------------------"
-    fi
-  done
-fi
+echo "--------------------------------------------------------------------------------------------"
