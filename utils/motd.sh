@@ -4,64 +4,12 @@ current_dir=$(dirname $0)
 
 source $current_dir/weather.sh
 
-# Set the list of websites
-websites=(
-  
-)
 # Display custom message of the day
 cat $current_dir/motd-message.txt
 
-echo "--------------------------------------------------------------------------------------------"
 echo "🗓  Today is $(date +"%A, %B %d, %Y") it is $(date +"%r")"
 echo "🌀 The current temperature is $current_temp"°" at "$current_location", the current condition is \""$current_condition"\"."
-
-
-# check for brew updates
-if [ -x "$(command -v brew)" ]
-then
-  updates=$(brew outdated | wc -l)
-  if [ "$updates" -gt 0 ]
-  then
-    echo "🍺 $updates brew updates are available. Run 'brew update && brew upgrade' to update."
-  fi
-fi
-
-# Check for system updates
-if [ -x "$(command -v softwareupdate)" ]
-then
-  updates=$(softwareupdate -l | grep -c "recommended")
-  if [ "$updates" -gt 0 ]
-  then
-    echo "🆕 $updates system updates are available."
-  fi
-fi
-# Loop through the websites and check their status using curl
-for website in "${websites[@]}"
-do
-  status_code=$(curl --silent --head --location --output /dev/null --write-out '%{http_code}' $website)
-
-  # Display the service indicator based on the status code
-  if [ $status_code -eq 200 ]
-  then
-    echo -e "\033[32m$website\033[0m is \033[32mUP\033[0m"
-
-  else
-    echo -e "\033[31m$website\033[0m is \033[31mDOWN\033[0m"
-
-  fi
-done
-
-#  Check for any changes in git remotes, require a git pull
-# if [ -x "$(command -v git)" ]
-# then
-#   for repo in $(find . -name .git -type d -prune)
-#   do
-#     cd $repo/..
-#     if [ -n "$(git remote show origin | grep 'local out of date')" ]
-#     then
-#       echo -e "\033[33m$(pwd)\033[0m has changes in the remote. Run \033[33mgit pull\033[0m to update."
-#     fi
-#   done
-# fi
-
+echo "--------------------------------------------------------------------------------------------"
+# display a message from zen quotes
+curl -s https://zenquotes.io/api/random | jq -r '.[0].q + " -" + .[0].a'
 echo "--------------------------------------------------------------------------------------------"

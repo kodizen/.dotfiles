@@ -21,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 unsetopt nomatch
 
 function git_branch {
-  git symbolic-ref --short HEAD 2> /dev/null
+    git symbolic-ref --short HEAD 2> /dev/null
 }
 
 # Set the prompt to display the Git branch name
@@ -46,7 +46,7 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 # Aliases
 alias zconf="code ~/.zshrc"
-alias zsource="source ~/dotfiles/.zshrc"
+alias zsource="source ~/.dotfiles/.zshrc"
 alias code="/Applications/Visual\ Studio\ Code.app/contents/Resources/app/bin/code"
 alias de="dev-env"
 alias dc="docker-compose"
@@ -218,9 +218,8 @@ knownrm() {
 export COMPOSER_MEMORY_LIMIT=-1
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #  zsh syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source ~/dotfiles/utils/motd.sh
+source ~/.dotfiles/utils/motd.sh
