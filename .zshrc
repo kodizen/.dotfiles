@@ -75,10 +75,10 @@ alias fgrep='fgrep --color=auto'
 alias h='history'
 alias j='jobs -l'
 
-alias vi=vim
-alias svi='sudo vi'
-alias vis='vim "+set si"'
-alias edit='vim'
+# alias vi=vim
+# alias svi='sudo vi'
+# alias vis='vim "+set si"'
+# alias edit='vim'
 
 # Stop after sending count ECHO_REQUEST packets #
 alias ping='ping -c 5'
@@ -257,6 +257,9 @@ knownrm() {
 export COMPOSER_MEMORY_LIMIT=-1
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# source rust
+source "$HOME/.cargo/env"
 
 #  zsh syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
