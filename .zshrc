@@ -5,10 +5,6 @@ export CLICOLOR=1
 export CLICOLOR_FORCE=1
 # Load the zsh-syntax-highlighting plugin
 # Enable syntax highlighting in the prompt
-
-
-# Enable syntax highlighting in the prompt
-
 plugins=(
     git
     zsh-autosuggestions
@@ -30,7 +26,7 @@ zstyle ':vcs_info:git:*' formats '%b'
 zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
 setopt prompt_subst
-PROMPT='%F{green} %*%F %3~ %F{white}$(git_branch)%F{white}'$'\n'"$ "$'%f'
+PROMPT='%F{green} %*%F %~ %F{white}$(git_branch)%F{white}'$'\n'"$ "$'%f'
 
 # Custom $PATH with extra locations
 export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
@@ -110,6 +106,17 @@ alias count='find . -type f | wc -l'
 alias ve='python3 -m venv ./venv'
 alias va='source ./venv/bin/activate'
 
+alias loadssu='launchctl load ~/Library/LaunchAgents/com.local.ssu.plist'
+alias unloadssu='launchctl unload ~/Library/LaunchAgents/com.local.ssu.plist'
+alias startssu='launchctl start com.local.ssu'
+alias stopssu='launchctl stop com.local.ssu'
+alias editssu='code ~/Library/LaunchAgents/com.local.ssu.plist'
+alias editssucode='code ~/scripts/slack-status-updater'
+alias restartssu='stopssu && startssu'
+alias ssuerrors='tail -f /tmp/com.local.ssu.err'
+alias ssuoutput='tail -f /tmp/com.local.ssu.out'
+
+alias runssu='cd ~/scripts/slack-status-updater && ./slack-status-updater.swift'
 alias python=python3
 
 
@@ -230,8 +237,6 @@ function suyabai () {
   fi
 }
 
-# Super useful Docker container oneshots.
-# Usage: dockrun, or dockrun [centos7|fedora27|debian9|debian8|ubuntu1404|etc.]
 dockrun() {
     docker run -it dyatesupnorth/docker-"${1:-ubuntu1604}"-ansible /bin/bash
 }
@@ -245,6 +250,16 @@ function denter() {
     
     docker exec -it $1 bash
     return 0
+}
+
+function sync_dotfiles() {
+    echo "Syncing dotfiles..."
+    cd $HOME/dotfiles 
+    git pull
+    git add -A
+    git commit -m "Update dotfiles"
+    git push
+    echo "Syncing done"
 }
 
 # Delete a given line number in the known_hosts file.
