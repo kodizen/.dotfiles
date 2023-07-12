@@ -256,7 +256,7 @@ function sync_dotfiles() {
     echo "Syncing dotfiles..."
     cd $HOME/dotfiles 
     git pull
-    git add -A
+    git add .
     git commit -m "Update dotfiles"
     git push
     echo "Syncing done"
