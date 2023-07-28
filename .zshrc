@@ -193,17 +193,6 @@ function kill () {
   command kill -KILL $(pidof "$@")
 }
 
-
-function sync_dotfiles() {
-    echo "Syncing dotfiles..."
-    cd $HOME/dotfiles 
-    git pull
-    git add .
-    git commit -m "Update dotfiles"
-    git push
-    echo "Syncing done"
-}
-
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
