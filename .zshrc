@@ -3,13 +3,15 @@ ZSH_DISABLE_COMPFIX="true"
 unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
+HIST_STAMPS="mm/dd/yyyy"
 
 # Load the zsh-syntax-highlighting plugin
 # Enable syntax highlighting in the prompt
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 plugins=(
     git
-    # zsh-autosuggestions
-    # zsh-syntax-highlighting
 )
 
 # Use home variable to export zsh
@@ -23,13 +25,15 @@ function git_branch {
     git symbolic-ref --short HEAD 2> /dev/null
 }
 
-# Set the prompt to display the Git branch name
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' formats '%b'
 zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
 setopt prompt_subst
-PROMPT='%F{green} %*%F{240}%~ %F{white}$(git_branch)%F{white}'$'\n'"$ "$'%f'
+PROMPT='%F{green}🚀 %F{242}%~%f %F{white}$(git_branch)%f $(if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == "true" ]]; then if [[ -n $(git status --porcelain) ]]; then echo "%F{green}○"; else echo "%F{green}●"; fi; fi)'$'\n'"$ "$'%f'
+
+
+
 
 # Custom $PATH with extra locations
 export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
@@ -46,19 +50,13 @@ fi
 # Aliases
 alias home="cd ~"
 alias ssh="TERM=xterm-256color ssh"
-
 alias zconf="code ~/.zshrc"
 alias zsource="source ~/.zshrc"
-alias code="/Applications/Visual\ Studio\ Code.app/contents/Resources/app/bin/code"
-alias de="dev-env"
 alias dc="docker-compose"
 alias grepnet="sudo lsof -i -n -P | grep"
-alias blogdev="code ~/Sites/blog && gatsby develop"
 alias gs="git status"
 alias c="clear"
-alias gstash='git stash'
-alias gstasha='git stash apply'
-alias gstashl='git stash list'
+
 alias hosts='sudo code /etc/hosts'
 alias fetch-dotfiles='cd ~/dotfiles && git pull && git submodule update --init --recursive && cd ~'
 alias sync-dotfiles='cd ~/dotfiles && git add . && git commit -m "Syncing dotfile" && git push && cd ~'
@@ -206,21 +204,15 @@ function sync_dotfiles() {
     echo "Syncing done"
 }
 
-
-
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
 export NVM_DIR="$HOME/.nvm"
-nvm() {
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-  nvm "$@"
-}
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 # source rust
 source "$HOME/.cargo/env"
 
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Source your motd.sh if it exists, otherwise no-op
-# [ -f ~/dotfiles/utils/motd.sh ] && source ~/dotfiles/utils/motd.sh
+[ -f ~/dotfiles/utils/motd.sh ] && source ~/dotfiles/utils/motd.sh
