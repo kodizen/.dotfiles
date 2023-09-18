@@ -31,7 +31,7 @@ sync:
 	@echo "Syncing dotfiles to repository..."
 	git add .
 	git commit -m "Syncing dotfiles"
-	git push origin master
+	git push origin main
 
 backup:
 	@echo "Backing up current configuration..."
