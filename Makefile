@@ -9,14 +9,17 @@ install:
 
 link:
 	@echo "Creating symlinks..."
-	ln -sfn $(PWD)/.config ~/.config
+	ln -sfn $(PWD)/.config/nvim ~/.config/nvim
+	ln -sfn $(PWD)/.config/weechat ~/.config/weechat
 	ln -sfn $(PWD)/.newsboat ~/.newsboat
 	ln -sfn $(PWD)/.zshrc ~/.zshrc
 
 unlink:
 	@echo "Removing symlinks..."
-	rm -rf ~/.config
-	rm -rf ~/newsboat
+	rm -rf ~/.config/nvim
+	rm -rf ~/.config/weechat
+	rm -rf ~/.newsboat
+	rm -rf ~/.zshrc
 
 update:
 	@echo "Updating dotfiles from repository..."
@@ -35,7 +38,7 @@ sync:
 
 backup:
 	@echo "Backing up current configuration..."
-	tar czf dotfiles_backup_$(shell date +%Y%m%d%H%M%S).tar.gz ~/.config ~/.newsboat ~/.zshrc
+	tar czf dotfiles_backup_$(shell date +%Y%m%d%H%M%S).tar.gz ~/.config/nvim ~/.config/weechat ~/.newsboat ~/.zshrc
 
 system-check:
 	@echo "Checking system type..."
