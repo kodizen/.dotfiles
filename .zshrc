@@ -7,11 +7,13 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Load the zsh-syntax-highlighting plugin
 # Enable syntax highlighting in the prompt
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 plugins=(
     git
+    zsh-syntax-highlighting
+    zsh-autosuggestions
 )
 
 # Use home variable to export zsh
@@ -32,9 +34,6 @@ precmd() { vcs_info }
 setopt prompt_subst
 PROMPT='%F{green}🚀 %F{242}%~%f %F{white}$(git_branch)%f $(if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == "true" ]]; then if [[ -n $(git status --porcelain) ]]; then echo "%F{green}○"; else echo "%F{green}●"; fi; fi)'$'\n'"$ "$'%f'
 
-
-
-
 # Custom $PATH with extra locations
 export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
 
@@ -50,7 +49,8 @@ fi
 # Aliases
 alias home="cd ~"
 alias ssh="TERM=xterm-256color ssh"
-alias zconf="code ~/.zshrc"
+alias zconf="nvim ~/.zshrc"
+alias vconf="nvim ~/.vimrc"
 alias zsource="source ~/.zshrc"
 alias dc="docker-compose"
 alias grepnet="sudo lsof -i -n -P | grep"
@@ -75,14 +75,9 @@ alias j='jobs -l'
 alias ping='ping -c 5'
 alias fastping='ping -c 100 -s.2'
 alias ports='netstat -tulanp'
-alias rm='rm -I --preserve-root'
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
 alias root='sudo -i'
 alias su='sudo -i'
 alias lt='du -sh * | sort -h'
-alias gh='history|grep'
 alias count='find . -type f | wc -l'
 alias ve='python3 -m venv ./venv'
 alias va='source ./venv/bin/activate'
@@ -98,6 +93,7 @@ alias ssuoutput='tail -f /tmp/com.local.ssu.out'
 alias runssu='cd ~/scripts/slack-status-updater && ./slack-status-updater.swift'
 alias python=python3
 alias allist="python ~/scripts/alias_list.py"
+
 
 function mkd() {
     mkdir -p "$@" && cd "$@"
@@ -187,8 +183,6 @@ function nnn () {
     fi
 }
 
-
-
 function kill () {
   command kill -KILL $(pidof "$@")
 }
@@ -203,5 +197,15 @@ export NVM_DIR="$HOME/.nvm"
 source "$HOME/.cargo/env"
 
 
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" 
 # Source your motd.sh if it exists, otherwise no-op
 [ -f ~/dotfiles/utils/motd.sh ] && source ~/dotfiles/utils/motd.sh
+ # This loads nvm bash_completion
+# bun completions
+[ -s "/Users/kodizen/.bun/_bun" ] && source "/Users/kodizen/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

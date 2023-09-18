@@ -1,0 +1,417 @@
+syntax on               " enable syntax highlighting
+set cursorline          " highlight the current line
+" set background=dark   " darker color scheme
+" set ruler             " show line number in bar
+set nobackup            " don't create pointless backup files; Use VCS instead
+set autoread            " watch for file changes
+set number              " show line numbers
+set showcmd             " show selection metadata
+set showmode            " show INSERT, VISUAL, etc. mode
+set showmatch           " show matching brackets
+set autoindent smartindent  " auto/smart indent
+set smarttab            " better backspace and tab functionality
+set scrolloff=5         " show at least 5 lines above/below
+filetype on             " enable filetype detection
+filetype indent on      " enable filetype-specific indenting
+filetype plugin on      " enable filetype-specific plugins
+
+" bells
+set noerrorbells        " turn off audio bell
+set visualbell          " but leave on a visual bell
+set belloff=all
+
+call plug#begin()
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'preservim/nerdtree'
+  Plug 'LunarWatcher/auto-pairs'
+  Plug 'preservim/nerdcommenter'
+  Plug 'rust-lang/rust.vim'
+  Plug 'maxboisvert/vim-simple-complete'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-rsi'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'tpope/vim-dispatch'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+" Include Phpactor
+  Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
+
+" Require ncm2 and this plugin
+  Plug 'ncm2/ncm2'
+  Plug 'roxma/nvim-yarp'
+  Plug 'phpactor/ncm2-phpactor'
+
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'sheerun/vim-polyglot'
+  Plug 'APZelos/blamer.nvim'
+  Plug 'ryanoasis/vim-devicons'
+
+call plug#end()
+
+let g:AutoPairsShortcutToggle = '<C-P>'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_tab_count = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_close_button = 1
+let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_zoom = 1
+let g:airline_statusline_ontop=1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_format = '%s'
+let g:airline_powerline_fonts = 1
+
+let mapleader = ","
+let g:NERDTreeWinSize = 30
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+ 
+nnoremap <silent><Leader>1 :put =printf('console.log(''🚀 %s:'',  %s);', expand('<cword>'), expand('<cword>'))<CR>
+ 
+nnoremap <silent><Leader>2 :put =printf('dd(''🚀 %s:'',  %s);', expand('<cword>'), expand('<cword>'))<CR>
+ 
+nnoremap <leader>g :ChatGPT<CR>
+
+syntax enable
+colorscheme dracula
+ 
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>/ :Commentary<cr>
+ 
+lua vim.api.nvim_command [[autocmd CursorHold   * lua require'utils'.blameVirtText()]]
+lua vim.api.nvim_command [[autocmd CursorMoved  * lua require'utils'.clearBlameVirtText()]]
+lua vim.api.nvim_command [[autocmd CursorMovedI * lua require'utils'.clearBlameVirtText()]]
+
+lua <<EOF
+-- Setup packer
+local use = require('packer').use
+
+require('packer').startup(function()
+  use('wbthomason/packer.nvim') -- Package manager
+  use('neovim/nvim-lspconfig') -- Configurations for Nvim LSP
+  use('jose-elias-alvarez/null-ls.nvim')
+  use('MunifTanjim/prettier.nvim')
+  use('preservim/nerdcommenter')
+
+use({
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup()
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+})
+  use {
+  "folke/which-key.nvim",
+  config = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+   
+    require "plugins.configs.whichkey"
+
+      local mappings = {
+        H = { "^", "Beginning of line" },
+        L = { "$", "End of line" },
+        c = {
+  name = "ChatGPT",
+    c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+    e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+    g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+    t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+    k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+    d = { "<cmd>ChatGPTRun docstring<CR>", "Docstring", mode = { "n", "v" } },
+    a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+    o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+    s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+    f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+    x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+    r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+    l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+  },
+      }
+
+      require("which-key").register(mappings, {})
+  end
+}
+end)
+
+-- Setup lspconfig
+require'lspconfig'.jedi_language_server.setup{}
+require'lspconfig'.tsserver.setup{}
+
+local null_ls = require("null-ls")
+
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
+})
+
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettierd', -- or `'prettierd'` (v0.23.3+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "php",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "vim",
+    "yaml",
+  },
+})
+
+require("chatgpt").setup({
+  {
+    api_key_cmd = nil,
+    yank_register = "+",
+    chat = {
+      welcome_message = WELCOME_MESSAGE,
+      loading_text = "Loading, please wait ...",
+      question_sign = "",
+      answer_sign = "ﮧ",
+      max_line_length = 120,
+      sessions_window = {
+        border = {
+          style = "rounded",
+          text = {
+            top = " Sessions ",
+          },
+        },
+        win_options = {
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+        },
+      },
+      keymaps = {
+        close = { "<C-c>" },
+        yank_last = "<C-y>",
+        yank_last_code = "<C-k>",
+        scroll_up = "<C-u>",
+        scroll_down = "<C-d>",
+        new_session = "<C-n>",
+        cycle_windows = "<C-t>",
+        cycle_modes = "<C-f>",
+        select_session = "<Space>",
+        rename_session = "r",
+        delete_session = "d",
+        draft_message = "<C-d>",
+        toggle_settings = "<C-o>",
+        toggle_message_role = "<C-r>",
+        toggle_system_role_open = "<C-s>",
+      },
+    },
+    popup_layout = {
+      default = "center",
+      center = {
+        width = "80%",
+        height = "80%",
+      },
+      right = {
+        width = "30%",
+        width_settings_open = "50%",
+      },
+    },
+    popup_window = {
+      border = {
+        highlight = "FloatBorder",
+        style = "rounded",
+        text = {
+          top = " ChatGPT ",
+        },
+      },
+      win_options = {
+        wrap = true,
+        linebreak = true,
+        foldcolumn = "1",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      },
+      buf_options = {
+        filetype = "markdown",
+      },
+    },
+    system_window = {
+      border = {
+        highlight = "FloatBorder",
+        style = "rounded",
+        text = {
+          top = " SYSTEM ",
+        },
+      },
+      win_options = {
+        wrap = true,
+        linebreak = true,
+        foldcolumn = "2",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      },
+    },
+    popup_input = {
+      prompt = "  ",
+      border = {
+        highlight = "FloatBorder",
+        style = "rounded",
+        text = {
+          top_align = "center",
+          top = " Prompt ",
+        },
+      },
+      win_options = {
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      },
+      submit = "<C-Enter>",
+      submit_n = "<Enter>",
+    },
+    settings_window = {
+      border = {
+        style = "rounded",
+        text = {
+          top = " Settings ",
+        },
+      },
+      win_options = {
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      },
+    },
+    openai_params = {
+      model = "gpt-4",
+      frequency_penalty = 0,
+      presence_penalty = 0,
+      max_tokens = 300,
+      temperature = 0,
+      top_p = 1,
+      n = 1,
+    },
+    openai_edit_params = {
+      model = "code-davinci-edit-001",
+      temperature = 0,
+      top_p = 1,
+      n = 1,
+    },
+    actions_paths = {},
+    show_quickfixes_cmd = "Trouble quickfix",
+    predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
+    }
+})
+local wk = require("which-key")
+local chatgpt = require("chatgpt")
+wk.register({
+    g = {
+        name = "ChatGPT",
+        e = {
+            function()
+                chatgpt.edit_with_instructions()
+            end,
+            "Edit with instructions",
+        },
+    },
+    c = {
+        name = "NERDCommenter",
+        c = { "<cmd>NERDCommenterComment<cr>", "Comment" },
+        n = { "<cmd>NERDCommenterNested<cr>", "Nested Comment" },
+        ["<space>"] = { "<cmd>NERDCommenterToggle<cr>", "Toggle Comment" },
+        m = { "<cmd>NERDCommenterMinimal<cr>", "Minimal Comment" },
+        i = { "<cmd>NERDCommenterInvert<cr>", "Invert Comment" },
+        s = { "<cmd>NERDCommenterSexy<cr>", "Block Comment" },
+        y = { "<cmd>NERDCommenterYank<cr>", "Yank and Comment" },
+        ["$"] = { "<cmd>NERDCommenterToEOL<cr>", "Comment to EOL" },
+        A = { "<cmd>NERDCommenterAppend<cr>", "Append Comment" },
+        a = { "<cmd>NERDCommenterAltDelims<cr>", "Alternate Delimiters" },
+        l = { "<cmd>NERDCommenterAlignLeft<cr>", "Align Left" },
+        b = { "<cmd>NERDCommenterAlignBoth<cr>", "Align Both" },
+        u = { "<cmd>NERDCommenterUncomment<cr>", "Uncomment" },
+    },
+}, {
+    prefix = "<leader>",
+    mode = "v",
+})
+EOF
+
+nnoremap <Leader>p :Prettier<CR>
+nnoremap <Leader>s :Ag<CR>
+
+nnoremap gd :lua vim.lsp.buf.definition()<CR>
+nnoremap gdh :lua vim.lsp.buf.definition()<CR><C-w><C-p>
+nnoremap gdi :lua vim.lsp.buf.definition()<CR><C-w>L
+nnoremap gdt :lua vim.lsp.buf.definition()<CR><C-w>T
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+nnoremap <Leader>/ :s/^/#<cr>
+hi! link GitLens Comment
