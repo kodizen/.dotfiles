@@ -26,13 +26,17 @@ brew install neofetch
 brew install alfred
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
+brew install weechat
+brew install newsboat
 
 # Brew Casks
 echo "Installing Brew Casks..."
-brew install --cask alacritty
 brew install --cask zoom
 brew install --cask vlc
 
+# Install modded fira code font
+echo "Installing Fira Code font..."
+brew install --cask font-fira-code-nerd-font
 
 # macOS Settings
 echo "Changing macOS defaults..."
@@ -72,4 +76,5 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
-
+# Tell iterm2 to use custom preferences set in dotfiles
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.dotfiles/iterm2"
