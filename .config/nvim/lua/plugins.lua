@@ -163,6 +163,15 @@ return {
   },
   -- }}}
 
+  -- Debugprint {{{
+  {
+    "andrewferrier/debugprint.nvim",
+    lazy = false,
+    config = function()
+      require "extensions.debugprint"
+    end
+  },
+  --}}}
 }
 
 

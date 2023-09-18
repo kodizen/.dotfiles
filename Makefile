@@ -23,7 +23,7 @@ unlink:
 
 update:
 	@echo "Updating dotfiles from repository..."
-	git pull origin master
+	git pull origin main
 	make link
 
 ohmyzsh:

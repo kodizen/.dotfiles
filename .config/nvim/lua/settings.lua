@@ -72,4 +72,7 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 -- }}}
 
+cmd[[set number]]
+
+
 -- vim: tabstop=2 shiftwidth=2 expandtab syntax=lua foldmethod=marker foldlevelstart=1
