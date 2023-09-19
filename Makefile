@@ -21,7 +21,7 @@ unlink:
 	rm -rf ~/.newsboat
 	rm -rf ~/.zshrc
 
-update:
+pull:
 	@echo "Updating dotfiles from repository..."
 	git pull origin main
 	make link
@@ -30,7 +30,7 @@ ohmyzsh:
 	@echo "Installing oh-my-zsh..."
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-sync:
+push:
 	@echo "Syncing dotfiles to repository..."
 	git add .
 	git commit -m "Syncing dotfiles"

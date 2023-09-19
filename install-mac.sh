@@ -20,6 +20,7 @@ brew install mas
 brew install neovim
 brew install tree
 brew install wget
+brew install golang
 brew install jq
 brew install gh
 brew install neofetch
@@ -78,3 +79,8 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Tell iterm2 to use custom preferences set in dotfiles
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.dotfiles/iterm2"
+
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+
