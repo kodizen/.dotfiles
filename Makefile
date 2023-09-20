@@ -49,4 +49,8 @@ dependencies:
 
 clean:
 	@echo "Cleaning up..."
-	
+
+add-alias:
+	@echo "Adding alias..."
+	echo "function dotmake() {\n  original_dir=\$(pwd)\n  cd ~/dotfiles\n  make \"\$@\"\n  cd \"\$original_dir\"\n}" >> ~/dotfiles/.zshrc
+

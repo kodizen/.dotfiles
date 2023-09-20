@@ -16,6 +16,7 @@ plugins=(
     zsh-autosuggestions
 )
 
+
 # Use home variable to export zsh
 export ZSH=$HOME/.oh-my-zsh
 
@@ -201,6 +202,19 @@ function kill () {
   command kill -KILL $(pidof "$@")
 }
 
+
+function dotmake() {
+  echo "Arguments passed: $@"
+  original_dir=$(pwd)
+  cd ~/dotfiles
+  make "$@"
+  echo "original dir: $(pwd)"
+  cd "$original_dir"
+
+}
+
+alias config='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
@@ -223,3 +237,4 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
