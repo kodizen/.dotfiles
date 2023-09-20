@@ -184,6 +184,19 @@ function nnn () {
     fi
 }
 
+gitinit() (
+     if [[ ! "$1" ]] ; then
+        echo "You must supply a git origin e.g. git@github.com:yourusername/your-repo.git"
+        echo "If you haven't created a repo yet, do that first -> https://github.com/new"
+        return 0
+    fi
+    git init
+    git add .
+    git commit -m "Initial commit"
+    git branch -M main
+    git remote add origin $1
+    git push -u origin main
+)
 function kill () {
   command kill -KILL $(pidof "$@")
 }
