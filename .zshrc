@@ -95,7 +95,7 @@ alias ssuoutput='tail -f /tmp/com.local.ssu.out'
 alias runssu='cd ~/scripts/slack-status-updater && ./slack-status-updater.swift'
 alias python=python3
 alias allist="python ~/scripts/alias_list.py"
-
+alias newsurls="nvim ~/dotfiles/.newsboat/urls"
 
 function mkd() {
     mkdir -p "$@" && cd "$@"
@@ -213,7 +213,19 @@ function dotmake() {
 
 }
 
-alias config='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+function fr() {
+  if [ "$#" -ne 3 ]; then
+    echo "Usage: fr <search_string> <replace_string> <file_extension>"
+    return 1
+  fi
+
+  find . -type f -name "*.$3" -exec sed -i 's/'"$1"'/'"$2"'/g' {} +
+}
+
+function dockergeddon(){
+  docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+}
+>>>>>>> 188bdc0 (fix: adds dockergeddon)
 
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1

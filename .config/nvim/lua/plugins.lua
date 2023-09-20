@@ -30,7 +30,7 @@ return {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
     },
-    config = function ()
+    config = function()
       require "extensions.neotree"
     end
   },
@@ -118,7 +118,7 @@ return {
   {
     "sainnhe/sonokai",
     lazy = false,
-    config = function ()
+    config = function()
       require "extensions.colorscheme.sonokai"
     end
   },
@@ -135,7 +135,8 @@ return {
   {
     "MunifTanjim/prettier.nvim",
     lazy = false,
-    ft = { "javascript", "typescript", "typescriptreact", "javascriptreact", "css", "scss", "json", "graphql", "markdown", "vue", "html", "yaml", "svelte" },
+    ft = { "javascript", "typescript", "typescriptreact", "javascriptreact", "css", "scss", "json", "graphql",
+      "markdown", "vue", "html", "yaml", "svelte" },
     config = function()
       require "extensions.prettier"
     end
@@ -172,8 +173,30 @@ return {
     end
   },
   --}}}
+
+  -- Conform {{{
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+    lazy = false,
+    config = function()
+      require "extensions.conform"
+    end
+  },
+  -- }}}
+
+  -- Vim Visual Multi {{{
+  {
+    'mg979/vim-visual-multi',
+    lazy = false,
+  },
+  -- }}}
+
+  -- CtrlSF {{{
+  {
+    'dyng/ctrlsf.vim',
+    lazy = false,
+  }
+  -- }}}
 }
-
-
-
 -- vim:tabstop=2 shiftwidth=2 expandtab syntax=lua foldmethod=marker foldlevelstart=0 foldlevel=0

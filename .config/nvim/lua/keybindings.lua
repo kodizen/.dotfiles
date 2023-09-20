@@ -52,6 +52,7 @@ nm('<leader>pa', '<cmd>PrettierAsync<CR>')                                      
 nm('<leader>ps', '<cmd>PrettierSync<CR>')                                        -- Format file sync
 nm('<leader>pc', '<cmd>PrettierConfig<CR>')                                      -- Create prettier config file
 nm('<leader>pd', '<cmd>PrettierDebug<CR>')                                       -- Debug prettier
-
+nm('<leader>pf', '<cmd>PrettierFormat<CR>')                                      -- Format file
+nm('<leader>pl', '<cmd>PrettierLine<CR>')                                        -- Format line
 -- }}}
 
