@@ -1,0 +1,59 @@
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 151.101.65.91:443...
+* Connected to mastodon.social (151.101.65.91) port 443 (#0)
+* ALPN: offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+* (304) (IN), TLS handshake, Unknown (8):
+* (304) (IN), TLS handshake, Certificate (11):
+* (304) (IN), TLS handshake, CERT verify (15):
+* (304) (IN), TLS handshake, Finished (20):
+* (304) (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / AEAD-AES256-GCM-SHA384
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: CN=mastodon.social
+*  start date: Aug  2 04:57:29 2023 GMT
+*  expire date: Oct 31 04:57:28 2023 GMT
+*  subjectAltName: host "mastodon.social" matched cert's "mastodon.social"
+*  issuer: C=US; O=Let's Encrypt; CN=R3
+*  SSL certificate verify ok.
+* using HTTP/2
+* h2h3 [:method: POST]
+* h2h3 [:path: /api/v1/statuses]
+* h2h3 [:scheme: https]
+* h2h3 [:authority: mastodon.social]
+* h2h3 [user-agent: curl/7.88.1]
+* h2h3 [accept: */*]
+* h2h3 [authorization: Bearer ]
+* h2h3 [content-length: 106]
+* h2h3 [content-type: application/x-www-form-urlencoded]
+* Using Stream ID: 1 (easy handle 0x7fe3f800c600)
+> POST /api/v1/statuses HTTP/2
+> Host: mastodon.social
+> user-agent: curl/7.88.1
+> accept: */*
+> authorization: Bearer 
+> content-length: 106
+> content-type: application/x-www-form-urlencoded
+> 
+* We are completely uploaded and fine
+< HTTP/2 400 
+< accept-ranges: bytes
+< via: 1.1 varnish, 1.1 varnish, 1.1 varnish
+< content-type: text/html; charset=UTF-8
+< x-request-id: 48faae3088c12e4e8fdb78dc3bde71ac
+< x-runtime: 0.005142
+< date: Sun, 24 Sep 2023 12:18:49 GMT
+< x-served-by: cache-fra-etou8220115-FRA, cache-fra-etou8220115-FRA, cache-lcy-eglc8600075-LCY
+< x-cache: MISS, MISS, MISS
+< x-cache-hits: 0, 0, 0
+< x-timer: S1695557930.925335,VS0,VE37
+< vary: Origin
+< strict-transport-security: max-age=31557600
+< alt-svc: h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+< content-length: 0
+< 
+* Connection #0 to host mastodon.social left intact

@@ -72,6 +72,7 @@ alias .5='cd ../../../../..'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias gundo="git reset --soft HEAD~1"
 alias h='history'
 alias j='jobs -l'
 alias ping='ping -c 5'
@@ -96,6 +97,20 @@ alias runssu='cd ~/scripts/slack-status-updater && ./slack-status-updater.swift'
 alias python=python3
 alias allist="python ~/scripts/alias_list.py"
 alias newsurls="nvim ~/dotfiles/.newsboat/urls"
+alias dotpull="cd ~/dotfiles && make pull && cd ~"
+alias dotpush="cd ~/dotfiles && make push && cd ~"
+
+
+
+function mastodon(){
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: mastodon <message>"
+    return 1
+  fi
+
+  sh ~/scripts/mastodon-poster.sh "$1"
+}
+
 
 function mkd() {
     mkdir -p "$@" && cd "$@"
@@ -225,7 +240,6 @@ function fr() {
 function dockergeddon(){
   docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
->>>>>>> 188bdc0 (fix: adds dockergeddon)
 
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
