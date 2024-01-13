@@ -40,35 +40,11 @@ call plug#begin()
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-" Include Phpactor
   Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
-  
-" Require ncm2 and this plugin
-  Plug 'ncm2/ncm2'
-  Plug 'roxma/nvim-yarp'
-  Plug 'phpactor/ncm2-phpactor'
-
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'sheerun/vim-polyglot'
- " Plug 'Eliot00/git-lens.vim'
 call plug#end()
 
-let g:AutoPairsShortcutToggle = '<C-P>'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_tab_count = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#show_close_button = 1
-let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#show_zoom = 1
-let g:airline_statusline_ontop=1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#buffer_nr_format = '%s'
-let g:airline_powerline_fonts = 1
 
 let mapleader = ","
 let g:NERDTreeWinSize = 30
@@ -90,14 +66,5 @@ nnoremap <Leader>h :wincmd h<CR>
 nnoremap <Leader>j :wincmd j<CR>
 nnoremap <Leader>k :wincmd k<CR>
 nnoremap <Leader>l :wincmd l<CR>
-
-"let g:gitlens_enabled = 1 
-
-"let g:GIT_LENS_CONFIG = {
- "   \ 'blame_prefix': '----',
-  "  \ 'blame_highlight': 'YourHighlight',
-  "  \ 'blame_wrap': 0,
-  "  \ 'blame_empty_line': 0
-  "  \ }
-
-" autocmd VimEnter * echo "(>^.^<) Meow! Welcome to Vim!"
+nnoremap - :delete<CR>:put<CR>
+nnoremap _ :delete<CR>:put!<CR>

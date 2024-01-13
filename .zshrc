@@ -17,6 +17,7 @@ plugins=(
 )
 
 
+
 # Use home variable to export zsh
 export ZSH=$HOME/.oh-my-zsh
 
@@ -99,7 +100,8 @@ alias allist="python ~/scripts/alias_list.py"
 alias newsurls="nvim ~/dotfiles/.newsboat/urls"
 alias dotpull="cd ~/dotfiles && make pull && cd ~"
 alias dotpush="cd ~/dotfiles && make push && cd ~"
-
+alias gcdp="git checkout develop && git pull"
+alias gcmp="git checkout main && git pull"
 
 
 function mastodon(){
@@ -202,17 +204,26 @@ function nnn () {
 
 gitinit() (
      if [[ ! "$1" ]] ; then
-        echo "You must supply a git origin e.g. git@github.com:yourusername/your-repo.git"
-        echo "If you haven't created a repo yet, do that first -> https://github.com/new"
+        echo "You must supply a name."
         return 0
     fi
+
+    if [[ ! "$2" ]] ; then
+        echo "You must supply a description."
+        return 0
+    fi
+
     git init
+    gh repo create $1 --private  -d $2 --add-readme
+    git remote add origin git@github.com:kodizen/$1.git
+    git pull origin main
     git add .
     git commit -m "Initial commit"
-    git branch -M main
-    git remote add origin $1
     git push -u origin main
+    
 )
+
+
 function kill () {
   command kill -KILL $(pidof "$@")
 }
@@ -241,6 +252,28 @@ function dockergeddon(){
   docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 }
 
+function addpost(){
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: addblogpost <title>"
+    return 1
+  fi
+
+    cd ~/workspace/superior-satellite
+    yarn new-post "$1"
+    open http://localhost:3000
+    nvim .
+}
+
+function tmux_sessionizer(){
+tmux-sessionizer
+
+}
+
+zle -N tmux_sessionizer
+
+
+bindkey "^F" tmux_sessionizer
+
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
@@ -263,4 +296,15 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="$PATH:$HOME/scripts"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "$HOME/.tmux.conf"
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+    tmux-sessionizer
+)
 
