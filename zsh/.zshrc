@@ -16,8 +16,6 @@ plugins=(
     zsh-autosuggestions
 )
 
-
-
 # Use home variable to export zsh
 export ZSH=$HOME/.oh-my-zsh
 
@@ -42,7 +40,6 @@ export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/l
 # Pyenv settings
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/shims:$PATH"
-
 # Lazy loading of pyenv
 if [[ -n $PYENV_ROOT && -z $(command -v pyenv) ]]; then
   eval "$(pyenv init --path)"
@@ -59,7 +56,6 @@ alias dc="docker-compose"
 alias grepnet="sudo lsof -i -n -P | grep"
 alias gs="git status"
 alias c="clear"
-
 alias hosts='sudo code /etc/hosts'
 alias fetch-dotfiles='cd ~/dotfiles && git pull && git submodule update --init --recursive && cd ~'
 alias sync-dotfiles='cd ~/dotfiles && git add . && git commit -m "Syncing dotfile" && git push && cd ~'
@@ -282,7 +278,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # source rust
 source "$HOME/.cargo/env"
-
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -301,7 +297,6 @@ export PATH="$PATH:$HOME/scripts"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source "$HOME/.tmux.conf"
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
