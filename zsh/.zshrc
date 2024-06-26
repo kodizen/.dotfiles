@@ -303,7 +303,6 @@ ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
     tmux-sessionizer
 )
 export EMACS="*term*"
-export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$HOME/.emacs.d/bin"
 
 
