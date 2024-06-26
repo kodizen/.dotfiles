@@ -269,7 +269,6 @@ zle -N tmux_sessionizer
 
 
 bindkey "^F" tmux_sessionizer
-alias emacs='$(/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs "$@")'
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
@@ -303,7 +302,6 @@ ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
     tmux-sessionizer
 )
 export EMACS="*term*"
-export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$HOME/.emacs.d/bin"
 
 
