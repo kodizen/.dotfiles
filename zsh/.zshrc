@@ -269,7 +269,6 @@ zle -N tmux_sessionizer
 
 
 bindkey "^F" tmux_sessionizer
-alias emacs='$(/Applications/Emacs.app/Contents/MacOS/Emacs "$@")'
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 # Lazy loading of nvm
