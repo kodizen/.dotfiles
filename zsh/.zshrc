@@ -267,6 +267,7 @@ tmux-sessionizer
 
 zle -N tmux_sessionizer
 
+alias emacs='emacs-29.3 &'
 
 bindkey "^F" tmux_sessionizer
 # Allow Composer to use almost as much RAM as Chrome.
