@@ -98,6 +98,7 @@ alias dotpull="cd ~/dotfiles && make pull && cd ~"
 alias dotpush="cd ~/dotfiles && make push && cd ~"
 alias gcdp="git checkout develop && git pull"
 alias gcmp="git checkout main && git pull"
+alias sail="./vendor/bin/sail"
 
 
 function mastodon(){
