@@ -63,8 +63,6 @@ require("lazy").setup({
   -- Fuzzy finder
   { import = 'kodizen.plugins.telescope' },
 
-  -- File tree sidebar
-  { import = 'kodizen.plugins.neo-tree' },
 
   -- A Status line.
   { import = 'kodizen.plugins.lualine' },
